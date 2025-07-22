@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import type { FilterOptions, SortBy } from '../types/feedback';
 import { FeedbackCard } from './FeedbackCard';
@@ -144,7 +144,7 @@ export function Dashboard() {
         <div className="space-y-4">
           {filteredAndSortedFeedbacks.length > 0 ? (
             filteredAndSortedFeedbacks.map((feedback) => (
-              <FeedbackCard key={feedback.id} feedback={feedback} />
+              <FeedbackCard key={feedback.id} feedback={feedback} searchTerm={filters.searchTerm} />
             ))
           ) : (
             <div className="text-center py-12">
