@@ -6,7 +6,7 @@ import { Dashboard } from './components/Dashboard';
 function AppContent() {
   const { currentUser } = useAuth();
 
-  return true ? <Dashboard /> : <Login />;
+  return currentUser ? <Dashboard /> : <Login />;
 }
 
 function App() {

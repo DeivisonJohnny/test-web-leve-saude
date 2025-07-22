@@ -1,42 +1,42 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { type User, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth"
-import { auth } from "@/config/firebase"
+import { useState, useEffect } from 'react';
+import { type User, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user)
-      setLoading(false)
-    })
+      setUser(user);
+      setLoading(false);
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   const login = async (email: string, password: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
   const logout = async () => {
     try {
-      await signOut(auth)
+      await signOut(auth);
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
   return {
     user,
     loading,
     login,
     logout,
-  }
-}
+  };
+};
