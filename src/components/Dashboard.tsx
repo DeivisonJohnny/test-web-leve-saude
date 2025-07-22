@@ -78,7 +78,6 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -91,7 +90,6 @@ export function Dashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Total de Feedbacks</h3>
@@ -109,7 +107,6 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="bg-white p-6 rounded-lg shadow-sm border mb-8">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
@@ -144,7 +141,6 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Feedbacks List */}
         <div className="space-y-4">
           {filteredAndSortedFeedbacks.length > 0 ? (
             filteredAndSortedFeedbacks.map((feedback) => (
