@@ -1,21 +1,21 @@
-"use client"
+'use client';
 
-import { Search, Filter } from "lucide-react"
-import type { FilterOptions, SortOption } from "@/types/feedback"
+import { Search, Filter } from 'lucide-react';
+import type { FilterOptions, SortBy } from '@/types/feedback';
 
 interface FeedbackFiltersProps {
-  filters: FilterOptions
-  onFiltersChange: (filters: FilterOptions) => void
+  filters: FilterOptions;
+  onFiltersChange: (filters: FilterOptions) => void;
 }
 
 export const FeedbackFilters = ({ filters, onFiltersChange }: FeedbackFiltersProps) => {
-  const handleSortChange = (sortBy: SortOption) => {
-    onFiltersChange({ ...filters, sortBy })
-  }
+  const handleSortChange = (sortBy: SortBy) => {
+    onFiltersChange({ ...filters, sortBy });
+  };
 
   const handleSearchChange = (searchTerm: string) => {
-    onFiltersChange({ ...filters, searchTerm })
-  }
+    onFiltersChange({ ...filters, searchTerm });
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
@@ -50,7 +50,7 @@ export const FeedbackFilters = ({ filters, onFiltersChange }: FeedbackFiltersPro
             id="sort"
             className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
             value={filters.sortBy}
-            onChange={(e) => handleSortChange(e.target.value as SortOption)}
+            onChange={(e) => handleSortChange(e.target.value as SortBy)}
           >
             <option value="date-desc">Data (Mais recente)</option>
             <option value="date-asc">Data (Mais antigo)</option>
@@ -60,5 +60,5 @@ export const FeedbackFilters = ({ filters, onFiltersChange }: FeedbackFiltersPro
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
