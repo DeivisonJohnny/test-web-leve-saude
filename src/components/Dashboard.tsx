@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import type { FilterOptions, SortBy } from '../types/feedback';
 import { FeedbackCard } from './FeedbackCard';
@@ -14,7 +14,7 @@ export function Dashboard() {
     sortBy: 'date-desc',
     searchTerm: '',
   });
-  const { feedbacks, loading, error } = useFeedbacks();
+  const { feedbacks, loading, error } = useFeedbacks(filters);
 
   const filteredAndSortedFeedbacks = useMemo(() => {
     let result = [...feedbacks];
