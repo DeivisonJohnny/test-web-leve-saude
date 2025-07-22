@@ -1,102 +1,80 @@
-"use client"
+'use client';
 
-import { useState, useMemo } from "react"
-import { useAuth } from "../contexts/AuthContext"
-import type { Feedback, FilterOptions, SortBy } from "../types/feedback"
-import { FeedbackCard } from "./FeedbackCard"
-import { Button } from "./ui/Button"
-import { Input } from "./ui/Input"
-
-// Mock data - replace with real Firebase data
-const mockFeedbacks: Feedback[] = [
-  {
-    id: "1",
-    userName: "João Silva",
-    rating: 5,
-    comment: "Excelente serviço! Muito satisfeito com o atendimento e a qualidade do produto.",
-    createdAt: new Date("2024-01-15T10:30:00"),
-  },
-  {
-    id: "2",
-    userName: "Maria Santos",
-    rating: 4,
-    comment: "Bom produto, entrega rápida. Apenas o preço poderia ser um pouco melhor.",
-    createdAt: new Date("2024-01-14T15:45:00"),
-  },
-  {
-    id: "3",
-    userName: "Pedro Oliveira",
-    rating: 3,
-    comment: "Produto ok, mas o atendimento ao cliente precisa melhorar.",
-    createdAt: new Date("2024-01-13T09:15:00"),
-  },
-  {
-    id: "4",
-    userName: "Ana Costa",
-    rating: 5,
-    comment: "Perfeito! Superou minhas expectativas. Recomendo para todos.",
-    createdAt: new Date("2024-01-12T14:20:00"),
-  },
-  {
-    id: "5",
-    userName: "Carlos Ferreira",
-    rating: 2,
-    comment: "Produto chegou com defeito. Processo de troca foi demorado.",
-    createdAt: new Date("2024-01-11T11:00:00"),
-  },
-]
+import { useState, useMemo } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import type { FilterOptions, SortBy } from '../types/feedback';
+import { FeedbackCard } from './FeedbackCard';
+import { Button } from './ui/Button';
+import { Input } from './ui/Input';
+import { useFeedbacks } from '@/hooks/useFeedbacks';
 
 export function Dashboard() {
-  const { logout } = useAuth()
+  const { logout } = useAuth();
   const [filters, setFilters] = useState<FilterOptions>({
-    sortBy: "date-desc",
-    searchTerm: "",
-  })
+    sortBy: 'date-desc',
+    searchTerm: '',
+  });
+  const { feedbacks, loading, error } = useFeedbacks();
 
   const filteredAndSortedFeedbacks = useMemo(() => {
-    let result = [...mockFeedbacks]
+    let result = [...feedbacks];
 
-    // Filter by search term
     if (filters.searchTerm) {
-      const searchLower = filters.searchTerm.toLowerCase()
+      const searchLower = filters.searchTerm.toLowerCase();
       result = result.filter(
         (feedback) =>
-          feedback.userName.toLowerCase().includes(searchLower) || feedback.comment.toLowerCase().includes(searchLower),
-      )
+          feedback.userName.toLowerCase().includes(searchLower) ||
+          feedback.comment.toLowerCase().includes(searchLower)
+      );
     }
 
-    // Sort
     result.sort((a, b) => {
       switch (filters.sortBy) {
-        case "date-desc":
-          return b.createdAt.getTime() - a.createdAt.getTime()
-        case "date-asc":
-          return a.createdAt.getTime() - b.createdAt.getTime()
-        case "rating-desc":
-          return b.rating - a.rating
-        case "rating-asc":
-          return a.rating - b.rating
+        case 'date-desc':
+          return b.createdAt.getTime() - a.createdAt.getTime();
+        case 'date-asc':
+          return a.createdAt.getTime() - b.createdAt.getTime();
+        case 'rating-desc':
+          return b.rating - a.rating;
+        case 'rating-asc':
+          return a.rating - b.rating;
         default:
-          return 0
+          return 0;
       }
-    })
+    });
 
-    return result
-  }, [filters])
+    return result;
+  }, [filters, feedbacks]);
 
   const handleSortChange = (sortBy: SortBy) => {
-    setFilters((prev) => ({ ...prev, sortBy }))
-  }
+    setFilters((prev) => ({ ...prev, sortBy }));
+  };
 
   const handleSearchChange = (searchTerm: string) => {
-    setFilters((prev) => ({ ...prev, searchTerm }))
-  }
+    setFilters((prev) => ({ ...prev, searchTerm }));
+  };
 
   const averageRating = useMemo(() => {
-    if (filteredAndSortedFeedbacks.length === 0) return 0
-    const sum = filteredAndSortedFeedbacks.reduce((acc, feedback) => acc + feedback.rating, 0)
-    return (sum / filteredAndSortedFeedbacks.length).toFixed(1)
-  }, [filteredAndSortedFeedbacks])
+    if (filteredAndSortedFeedbacks.length === 0) return 0;
+    const sum = filteredAndSortedFeedbacks.reduce((acc, feedback) => acc + feedback.rating, 0);
+    return (sum / filteredAndSortedFeedbacks.length).toFixed(1);
+  }, [filteredAndSortedFeedbacks]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-xl">Carregando feedbacks...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-500 text-xl">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -112,13 +90,12 @@ export function Dashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Total de Feedbacks</h3>
-            <p className="text-3xl font-bold text-blue-600">{mockFeedbacks.length}</p>
+            <p className="text-3xl font-bold text-blue-600">{feedbacks.length}</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Nota Média</h3>
@@ -126,7 +103,9 @@ export function Dashboard() {
           </div>
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Feedbacks Filtrados</h3>
-            <p className="text-3xl font-bold text-purple-600">{filteredAndSortedFeedbacks.length}</p>
+            <p className="text-3xl font-bold text-purple-600">
+              {filteredAndSortedFeedbacks.length}
+            </p>
           </div>
         </div>
 
@@ -168,7 +147,9 @@ export function Dashboard() {
         {/* Feedbacks List */}
         <div className="space-y-4">
           {filteredAndSortedFeedbacks.length > 0 ? (
-            filteredAndSortedFeedbacks.map((feedback) => <FeedbackCard key={feedback.id} feedback={feedback} />)
+            filteredAndSortedFeedbacks.map((feedback) => (
+              <FeedbackCard key={feedback.id} feedback={feedback} />
+            ))
           ) : (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">Nenhum feedback encontrado.</p>
@@ -177,5 +158,5 @@ export function Dashboard() {
         </div>
       </main>
     </div>
-  )
+  );
 }
