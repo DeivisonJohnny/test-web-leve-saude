@@ -6,7 +6,7 @@ Sistema web para administração de feedbacks do aplicativo LeveSaude.
 
 ### 1. Acesse o Painel Web
 
-[🔗 Link do projeto em deploy](https://levesaude-admin.vercel.app)
+[🔗 Link do projeto em deploy](https://test-web-leve-saude-steel.vercel.app/)
 
 ### 2. Faça Login com o Usuário de Teste
 
