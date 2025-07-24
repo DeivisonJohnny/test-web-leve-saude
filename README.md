@@ -1,5 +1,35 @@
-# Vue 3 + TypeScript + Vite
+# LeveSaude - Painel Web Administrativo
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Sistema web para administração de feedbacks do aplicativo LeveSaude.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 🌐 Acesso ao Sistema
+
+### 1. Acesse o Painel Web
+
+[🔗 Link do projeto em deploy](https://levesaude-admin.vercel.app)
+
+### 2. Faça Login com o Usuário de Teste
+
+- **Email**: `teste@gmail.com`
+- **Senha**: `93186145`
+
+## 📋 Sobre o Sistema
+
+A versão web do LeveSaude é uma plataforma administrativa dedicada ao gerenciamento de feedbacks dos usuários do aplicativo mobile
+
+## 🚀 Primeiros Passos
+
+1. **Acesse o sistema** através do link fornecido
+2. **Faça login** com as credenciais de teste:
+   - Email: `teste@gmail.com`
+   - Senha: `93186145`
+3. **Explore o painel** administrativo
+4. **Navegue pelas seções** de feedbacks disponíveis
+5. **Visualize e gerencie** os comentários dos usuários
+
+## 👥 Credenciais de Acesso
+
+**Usuário de Teste**:
+
+- **Email**: `teste@gmail.com`
+- **Senha**: `93186145`
